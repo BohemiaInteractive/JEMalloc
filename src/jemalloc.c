@@ -270,7 +270,7 @@ typedef struct {
  */
 
 static bool	malloc_init_hard_a0(void);
-static bool	malloc_init_hard(void);
+bool	malloc_init_hard(void);
 
 /******************************************************************************/
 /*
@@ -780,6 +780,36 @@ stats_print_atexit(void)
 		}
 	}
 	je_malloc_stats_print(NULL, NULL, NULL);
+}
+
+size_t
+stats_total_reserved(void)
+{
+  size_t allocated = 0;
+  size_t resident = 0;
+  size_t mapped = 0;
+
+  if (config_tcache && config_stats) {
+    tsdn_t *tsdn = tsdn_fetch();
+    base_stats_get(tsdn, &allocated, &resident, &mapped);
+  }
+
+  return mapped;
+}
+
+size_t
+stats_total_commited(void)
+{
+  size_t allocated = 0;
+  size_t resident = 0;
+  size_t mapped = 0;
+
+  if (config_tcache && config_stats) {
+    tsdn_t *tsdn = tsdn_fetch();
+    base_stats_get(tsdn, &allocated, &resident, &mapped);
+  }
+
+  return allocated;
 }
 
 /*
@@ -1292,7 +1322,7 @@ malloc_conf_init(void)
 	}
 }
 
-static bool
+bool
 malloc_init_hard_needed(void)
 {
 
@@ -1450,7 +1480,7 @@ malloc_init_hard_finish(tsdn_t *tsdn)
 	return (false);
 }
 
-static bool
+bool
 malloc_init_hard(void)
 {
 	tsd_t *tsd;

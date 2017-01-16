@@ -17,7 +17,7 @@ How to build jemalloc for Windows
    (note: x86/x64 doesn't matter at this point)
 
 5. Generate header files:
-   sh -c "CC=cl ./autogen.sh"
+   sh -c "CC=cl ./autogen.sh --disable-munmap --disable-fill --disable-stats --with-jemalloc-prefix='je_' --disable-cache-oblivious"
 
 6. Now the project can be opened and built in Visual Studio:
    msvc\jemalloc_vc2015.sln

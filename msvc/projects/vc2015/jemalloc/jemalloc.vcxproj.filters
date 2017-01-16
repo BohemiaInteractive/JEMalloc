@@ -268,5 +268,8 @@
     <ClCompile Include="..\..\..\..\src\witness.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\src\jemalloc_bi.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
